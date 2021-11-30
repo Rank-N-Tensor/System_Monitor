@@ -1,0 +1,6 @@
+monitor
+a.out
+
+*.o
+*.json
+.github/**

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/format.h
+string
+-
+
+/home/adi/System_Monitor/src/format.cpp
+string
+-
+format.h
+/home/adi/System_Monitor/src/format.h
+
