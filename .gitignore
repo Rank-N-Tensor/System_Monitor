@@ -1,6 +1,6 @@
 monitor
 a.out
-
+build/*
 *.o
 *.json
 .github/**
