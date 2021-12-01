@@ -1,3 +1,0 @@
-/home/adi/System_Monitor/build/CMakeFiles/rebuild_cache.dir
-/home/adi/System_Monitor/build/CMakeFiles/edit_cache.dir
-/home/adi/System_Monitor/build/CMakeFiles/monitor.dir
