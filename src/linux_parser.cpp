@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include<iostream>
 #include "linux_parser.h"
 using std::stof;
 using std::string;
@@ -37,6 +38,7 @@ template <typename CpuData>
     }
     datastrm.close();
   }  
+
   return actual_value;
 }
 
@@ -93,7 +95,6 @@ string LinuxParser::Kernel() {
   return kernel;
 }
 
-// BONUS: Update this to use std::filesystem
 vector<int> LinuxParser::Pids() {
   vector<int> pids;
   DIR* directory = opendir(kProcDirectory.c_str());
@@ -141,17 +142,17 @@ float LinuxParser::MemoryUtilization() {
 
 //  Read and return the system uptime
 long LinuxParser::UpTime() { 
- long utime,idletime;
+ long utime;
  string line;
  ifstream ut_strm(kProcDirectory+kUptimeFilename);
  while(ut_strm.is_open()){
      while (getline(ut_strm,line)){
          istringstream strm(line);
-         strm>>utime>>idletime;
+         strm>>utime;
  }
     ut_strm.close();
 }
-return utime/sysconf(_SC_CLK_TCK);
+return utime;
 }
 
 /*
@@ -162,8 +163,8 @@ so the total number of jiffes is essentially the time elapsed
 //  Read and return CPU utilization
 vector<string> LinuxParser::CpuUtilization() { 
    vector<string> cpu_util_jiffies;
-  ifstream cpustrm(kProcDirectory+ kCpuinfoFilename);
   string line,cpu_no,user,nice,system,idle,iowait, irq,softirq,steal,guest,guest_nice;
+  ifstream cpustrm(kProcDirectory+ kStatFilename);
   while(cpustrm.is_open()){
   getline(cpustrm,line);
   istringstream strm(line);
@@ -189,14 +190,15 @@ long LinuxParser::ActiveJiffies(int pid) {
 long LinuxParser::ActiveJiffies() { 
   auto jiffies = CpuUtilization();
   auto active= std::stol(jiffies[CPUStates::kUser_]) + std::stol(jiffies[CPUStates::kSystem_]) + std::stol(jiffies[CPUStates::kNice_]) + std::stol(jiffies[CPUStates::kGuest_]) + std::stol(jiffies[CPUStates::kGuestNice_]) +std::stol(jiffies[CPUStates::kSteal_]) +std::stol(jiffies[CPUStates::kIRQ_]) + std::stol(jiffies[CPUStates::kSoftIRQ_]);
-  return active/sysconf(_SC_CLK_TCK);
+ 
+  return active;
  }
 
 //  Read and return the number of idle jiffies for the system
 long LinuxParser::IdleJiffies() { 
   auto jiffies = CpuUtilization();
   auto idle = std::stol(jiffies[CPUStates::kIdle_]) + std::stol(jiffies[CPUStates::kIOwait_]) ;
-  return idle/sysconf(_SC_CLK_TCK);
+  return idle;
  }
 
 //  Read and return the number of jiffies for the system

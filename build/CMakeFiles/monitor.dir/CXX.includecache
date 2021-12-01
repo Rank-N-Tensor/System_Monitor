@@ -6,13 +6,27 @@
 
 #IncludeRegexTransform: 
 
-../include/format.h
+../include/linux_parser.h
+fstream
+-
+regex
+-
 string
 -
 
-/home/adi/System_Monitor/src/format.cpp
+/home/adi/System_Monitor/src/linux_parser.cpp
+dirent.h
+-
+unistd.h
+-
+sstream
+-
 string
 -
-format.h
-/home/adi/System_Monitor/src/format.h
+vector
+-
+iostream
+-
+linux_parser.h
+/home/adi/System_Monitor/src/linux_parser.h
 
