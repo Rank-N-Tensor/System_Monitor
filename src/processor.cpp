@@ -11,6 +11,5 @@ float Processor::Utilization() {
     _idlejiff = LinuxParser::IdleJiffies();
     _totjiff=LinuxParser::Jiffies(); 
     _utilisation= ((float(_totjiff)-float(_idlejiff)))/float(_totjiff); // had divide by 0 error here, because both the _totjiff and _idlejiff were 0
-    std::cout<< _utilisation<<std::endl;
     return _utilisation;
 } 

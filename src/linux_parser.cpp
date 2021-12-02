@@ -242,7 +242,7 @@ string LinuxParser::Uid(int pid) {
 //  Read and return the user associated with a process
 
 string LinuxParser::User(int pid) { 
-  ifstream pid_user_strm(kProcDirectory+to_string(pid)+kPasswordPath);
+  ifstream pid_user_strm(kPasswordPath);
   string line,user,actual_user,uid;
   char  x;
   while (pid_user_strm.is_open()) {
