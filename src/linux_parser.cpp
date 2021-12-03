@@ -230,7 +230,9 @@ string LinuxParser::Command(int pid) {
 //  Read and return the memory used by a process
 
 string LinuxParser::Ram(int pid) { 
-  return Extractor<string>(LinuxParser::filterProcMem,true,pid);
+  string ram= Extractor<string>(LinuxParser::filterProcMem,true,pid);
+  ram= to_string(std::stoi(ram)/1024); // convert to kb
+  return ram;
 }
 
 //  Read and return the user ID associated with a process
