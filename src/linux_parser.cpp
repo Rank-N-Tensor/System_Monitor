@@ -230,10 +230,18 @@ string LinuxParser::Command(int pid) {
 //  Read and return the memory used by a process
 
 string LinuxParser::Ram(int pid) { 
-  string ram= Extractor<string>(LinuxParser::filterProcMem,true,pid);
-  ram= to_string(std::stol(ram)/1024); // convert to kb
-  return ram;
-}
+  /* long division was resulting in segmentation fault emanating from line 6509 in basic_string.h 
+
+  string ram_used;
+  long ram=Extractor<long>(LinuxParser::filterProcMem,true,pid);
+  ram=ram/(long)1024;
+  ram_used=to_string(ram);
+  return ram_used;
+  */
+
+ string ram= Extractor<string>(LinuxParser::filterProcMem,true,pid);
+ return ram.substr(0,ram.length()-3); //effectively division by 1000
+  }
 
 //  Read and return the user ID associated with a process
 
