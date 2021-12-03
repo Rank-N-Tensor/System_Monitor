@@ -231,7 +231,7 @@ string LinuxParser::Command(int pid) {
 
 string LinuxParser::Ram(int pid) { 
   string ram= Extractor<string>(LinuxParser::filterProcMem,true,pid);
-  ram= to_string(std::stoi(ram)/1024); // convert to kb
+  ram= to_string(std::stol(ram)/1024); // convert to kb
   return ram;
 }
 
