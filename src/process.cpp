@@ -13,11 +13,10 @@ using std::vector;
 //  Return this process's ID
 //process constructor
  Process::Process(int pid): _pid(pid){
-    Process::Set_SysUptime();
     Process::Set_ActiveJiff();
     Process::Set_Startime();
     try {
-    _cpuUtil = float(_actjiff)/float((_sysuptime-_startime)) ;
+    _cpuUtil = float(_actjiff)/float((_startime)) ;
 } catch(...){
     _cpuUtil=0;
 }
@@ -27,12 +26,10 @@ void Process::Set_ActiveJiff(){
 }
 
 void Process::Set_Startime(){
-    _startime=LinuxParser::UpTime(_pid);
+    _startime=LinuxParser::UpTime()-LinuxParser::UpTime(_pid);
 }
 
-void Process::Set_SysUptime(){
-    _sysuptime = LinuxParser::UpTime();
-}
+
 
 int Process::Pid() { return _pid; }
 

@@ -20,12 +20,12 @@ class Process {
   bool operator<(Process const& a) const;  //  See src/process.cpp
   void Set_ActiveJiff();
   void Set_Startime();
-  void Set_SysUptime();
+
 
   //  Declare any necessary private members
  private:
  int _pid; //using Mr.david silver's notation
- long _actjiff,_startime,_sysuptime;  // here _uptime = startime , check https://stackoverflow.com/questions/16726779/how-do-i-get-the-total-cpu-usage-of-an-application-from-proc-pid-stat/16736599#16736599
+ long _actjiff,_startime;  // here _uptime = startime , check https://stackoverflow.com/questions/16726779/how-do-i-get-the-total-cpu-usage-of-an-application-from-proc-pid-stat/16736599#16736599
  float _cpuUtil;
 };
 
