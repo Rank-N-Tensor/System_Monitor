@@ -124,11 +124,11 @@ float LinuxParser::MemoryUtilization() {
       replace(line.begin(),line.end(),':',' ');
       std::istringstream strm(line);
       while(strm>>key>>value){
-        if(key=="MemTotal"){
+        if(key==LinuxParser::filterMemTotalString){
           
           mem_T=value;
         }
-        else if(key=="MemFree"){
+        else if(key==LinuxParser::filterMemFreeString){
           
           mem_F=value;
         }
@@ -209,13 +209,13 @@ long LinuxParser::Jiffies() {
 
 //  Read and return the total number of processes
 int LinuxParser::TotalProcesses() { 
-  return Extractor<int>("processes",false); //using template, remmber to reassign CpuData to a generic type
+  return Extractor<int>(LinuxParser::filterProcesses,false); //using template, remmber to reassign CpuData to a generic type
 
  }
 
 //  Read and return the number of running processes
 int LinuxParser::RunningProcesses() { 
-  return Extractor<int>("procs_running",false);
+  return Extractor<int>(LinuxParser::filterRunningProcesses,false);
  }
 
 //  Read and return the command associated with a process
@@ -230,13 +230,13 @@ string LinuxParser::Command(int pid) {
 //  Read and return the memory used by a process
 
 string LinuxParser::Ram(int pid) { 
-  return Extractor<string>("VmSize:",true,pid);
+  return Extractor<string>(LinuxParser::filterProcMem,true,pid);
 }
 
 //  Read and return the user ID associated with a process
 
 string LinuxParser::Uid(int pid) { 
-  return Extractor<string>("Uid:",true,pid);  
+  return Extractor<string>(LinuxParser::filterUID,true,pid);  
   }
 
 //  Read and return the user associated with a process
