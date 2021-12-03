@@ -22,8 +22,8 @@ vector<Process>& System::Processes() {
     vector<int> pids = LinuxParser::Pids();
     processes_.clear(); //clearing the vector
     for (int i : pids){ //for each process in pid
-        if(!LinuxParser::Ram(pids[i]).empty()){ //if the process is using some memory atleast, that is, its active
-        Process proc(pids[i]); //create new process
+        if(!LinuxParser::Ram(i).empty()){ //if the process is using some memory atleast, that is, its active
+        Process proc(i); //create new process
         processes_.emplace_back(proc);
         }
     }
